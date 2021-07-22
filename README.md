@@ -1,5 +1,5 @@
 # onion-farm
-onion network on one server with container microservices as the nodes
+onion network on one server with mocroservices (just server processes running, not docker container or anything) as the nodes
 
 <img src='onion-server.png'/>
 
