@@ -1,5 +1,7 @@
 # Outisde Resources
 
+## How does Onion Routing work
+- [Provably Secure and Practical Onion Routing (research paper)](https://eprint.iacr.org/2011/308.pdf)
 
 ## Diffie Helmann
 - [Diffie Helmann Server/Client in Java](https://www.geeksforgeeks.org/java-implementation-of-deffi-hellman-algorithm-between-client-and-server/)
