@@ -3,6 +3,7 @@
 ## How does Onion Routing work / implementations
 - [Provably Secure and Practical Onion Routing (research paper)](https://eprint.iacr.org/2011/308.pdf)
 - [SheCodes Tulsa: How to Setup a Tor Relay on a Raspberry Pi](https://www.youtube.com/watch?v=OkrydGEcjrI&t=28s)
+  - [Article + Instructions](https://kendallwerts.com/)  
 - [Onion Routing Deep Dive (Lightning Network) with Christian Decker](https://www.youtube.com/watch?v=D4kX0gR-H0Y)
 
 ## Diffie Helmann
