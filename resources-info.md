@@ -8,6 +8,7 @@
 - [Implementation of Routing Protocolfor Network and Data Securityusing Onion Routing with Salt Method](http://www.ijsrp.org/research-paper-0715/ijsrp-p4399.pdf)
 
 ## Networking with GoLang
+- [HTTP Server With GoLang](https://blog.logrocket.com/creating-a-web-server-with-golang/) (this is probably more useful than the whole networking course)
 - [Network Programming with Go -- GitBook course](https://ipfs.io/ipfs/QmfYeDhGH9bZzihBUDEQbCbTc5k5FZKURMUoUvfmc27BwL/architecture/networking.html)
 
 ## Diffie Helmann
