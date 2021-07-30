@@ -12,7 +12,10 @@ server_program=./server
 ports=$@
 for port in $ports; do
 	$server_program $port &
+	pids="$pids $!"
 done
+echo "server process ids: $pids"
+
 
 sleep .5
 killme="nope not yet"
@@ -20,4 +23,4 @@ while [[ $killme != "kill" ]]; do
 	echo -n "type \"kill\" to kill the servers: "; read killme
 done
 
-killall $server_program
+kill $pids
