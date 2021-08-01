@@ -1,1 +1,15 @@
-make two servers on two ports, one which you send a message to, which passes (POSTs?) it to the second one
+- make two servers on two ports, one which you send a message to, which passes (POSTs?) it to the second one
+
+- way to test this:
+    start up the server as a totally separate machine (instead of you doinking around and back to your computer)
+    send the message through the 'onion network' of the specific machine
+    receive the message either on your machine or even on another, as the destination server instead of the tor server
+
+- possibly inefficient idea since web hosts are going to take measures to not have programs access too often
+    - have requests wait in a set until N messages arrive
+        - you can make it bypass the set if you know that its urgent, or nudge it out of the set if it's taking too long
+    - randomly visit every item of the set, where you will release the request, along with randint(m,n) other requests of that size to other websites / serv{ers,ices}
+    - have a really large randomly-selected-from list of possible urls to send the request to
+    - receive the aritificial requests back and discard the answer
+
+    - this is possibly still breakable with traffic analysis patterns, but as of now i cant think of anything. there could potentially be edge cases
