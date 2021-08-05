@@ -1,4 +1,4 @@
-target = server
+target = onion-node
 
 all:
 	go build -o $(target)
