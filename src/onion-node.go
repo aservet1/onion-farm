@@ -34,30 +34,26 @@ func handleRequests(PORT int) {
 	log.Fatal ( http.ListenAndServe( fmt.Sprintf(":%d", PORT), myRouter) );
 }
 
-func ParseRelayMessage( writer http.ResponseWriter, request *http.Request ) RelayMessage {
-	var relaymsg RelayMessage
+func IsAtLastStep(relayMsg RelayMessage) bool {
+	return ( relayMsg.RelayIndex >= len(relayMsg.NodeURLs) )
+}
+
+func Relay( writer http.ResponseWriter, request *http.Request ) {
+
+	var relayMsg RelayMessage
 
 	b, err:= ioutil.ReadAll(request.Body)
 	defer request.Body.Close()
 	if err != nil {
 		http.Error(writer, err.Error(), 500)
-		return relaymsg
+		return
 	}
-	err = json.Unmarshal(b, &relaymsg)
+	err = json.Unmarshal(b, &relayMsg)
 	if err != nil {
 		http.Error(writer, err.Error(), 500)
-		return relaymsg
+		return
 	}
 
-	return relaymsg
-}
-
-func IsAtLastStep(relayMsg RelayMessage) bool {
-	return relayMsg.RelayIndex >= len(relayMsg.NodeURLs)
-}
-
-func Relay (writer http.ResponseWriter, request *http.Request) {
-	relayMsg := ParseRelayMessage(writer, request)
 	if IsAtLastStep(relayMsg) {
 		_nodePrint("Received message: " + relayMsg.Msg) //todo: make this send an actual request to an actual website/service like webRAPL and bring the info back to the Client
 		return
@@ -68,18 +64,18 @@ func Relay (writer http.ResponseWriter, request *http.Request) {
 	NextURL.Path += "/api/relay"
 
 	relayMsg.RelayIndex = relayMsg.RelayIndex + 1
-	json_data, err := json.Marshal(relayMsg)
-	if err != nil {
-		log.Fatal(err)
+	json_data, err2 := json.Marshal(relayMsg)
+	if err2 != nil {
+		log.Fatal(err2)
 	}
 
-	//todo: actually read and work with the response to this
-	response, err2 := http.Post(NextURL.String(), "application/json", bytes.NewBuffer(json_data))
-	if err2 != nil {
-		log.Fatal(err)
+	response, err3 := http.Post(NextURL.String(), "application/json", bytes.NewBuffer(json_data))
+	if err3 != nil {
+		log.Fatal(err3)
 	}
 
 	fmt.Fprint(writer, response)
+
 }
 
 func main() {
@@ -98,3 +94,5 @@ func main() {
 	NODE_ID = PORT; // maybe come up with a better node id convention, or not. this will do fine for now
 	handleRequests(PORT);
 }
+
+
