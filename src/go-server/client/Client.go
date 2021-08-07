@@ -48,7 +48,7 @@ func ReadURLFile(filename string) []string {
 	return URLs
 }
 
-func ReadMessageInput() string {
+func ReadMessageFromInput() string {
 	fmt.Print("enter the message you want to send: ")
 	keyboard := bufio.NewReader(os.Stdin)
 	text, _ := keyboard.ReadString('\n')
@@ -64,8 +64,9 @@ func main() {
 	message := CreateRelayMessage(ReadMessageFromInput(), ReadURLFile(os.Args[1]))
 	firstURL := message.NodeURLs[0] + "/api/relay" //todo: do actual url builder
 	json_data, _ := json.Marshal(message)
-	_, err := http.Post(firstURL, "application/json", bytes.NewBuffer(json_data))
-	if err != nil { log.Fatal(err) }
 	fmt.Println("sending across relay:",message.NodeURLs)
+	response, err := http.Post(firstURL, "application/json", bytes.NewBuffer(json_data))
+	if err != nil { log.Fatal(err) }
+	fmt.Println("response:",response)
 }
 

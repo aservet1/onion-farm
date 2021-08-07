@@ -54,14 +54,13 @@ func ParseRelayMessage( writer http.ResponseWriter, request *http.Request ) Rela
 
 func Relay (writer http.ResponseWriter, request *http.Request) {
 	relayMsg := ParseRelayMessage(writer, request)
-	index := relayMsg.RelayIndex
-	if index >= len(relayMsg.NodeURLs) {
+	if relayMsg.RelayIndex >= len(relayMsg.NodeURLs) {
 		_nodePrint("Received message: " + relayMsg.Msg)
 		return
 	}
 
-	_nodePrint("relaying message to " + relayMsg.NodeURLs[index] + "...")
-	NextURL, _ := url.Parse(relayMsg.NodeURLs[index])
+	_nodePrint("relaying message to " + relayMsg.NodeURLs[relayMsg.RelayIndex] + "...")
+	NextURL, _ := url.Parse(relayMsg.NodeURLs[relayMsg.RelayIndex])
 	NextURL.Path += "/api/relay"
 
 	relayMsg.RelayIndex = relayMsg.RelayIndex + 1
@@ -71,10 +70,12 @@ func Relay (writer http.ResponseWriter, request *http.Request) {
 	}
 
 	//todo: actually read and work with the response to this
-	_, err2 := http.Post(NextURL.String(), "application/json", bytes.NewBuffer(json_data))
+	response, err2 := http.Post(NextURL.String(), "application/json", bytes.NewBuffer(json_data))
 	if err2 != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Fprint(writer, response)
 }
 
 func main() {
