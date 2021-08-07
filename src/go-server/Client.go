@@ -48,21 +48,20 @@ func ReadURLFile(filename string) []string {
 	return URLs
 }
 
-func main() {
-	var URLs []string
-	if len(os.Args) > 1 {
-		URLs = ReadURLFile(os.Args[1])
-	} else {
-		fmt.Printf("usage: %s network-url-file\n", os.Args[0])
-		os.Exit(1)
-	}
-
+func ReadMessageInput() string {
 	fmt.Print("enter the message you want to send: ")
 	keyboard := bufio.NewReader(os.Stdin)
 	text, _ := keyboard.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
+	return text
+}
 
-	message := CreateRelayMessage(text, URLs)
+func main() {
+	if len(os.Args) == 1 {
+		fmt.Printf("usage: %s network-url-file\n", os.Args[0])
+		os.Exit(1)
+	}
+	message := CreateRelayMessage(ReadMessageFromInput(), ReadURLFile(os.Args[1]))
 	firstURL := message.NodeURLs[0] + "/api/relay" //todo: do actual url builder
 	json_data, _ := json.Marshal(message)
 	_, err := http.Post(firstURL, "application/json", bytes.NewBuffer(json_data))
