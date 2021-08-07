@@ -52,10 +52,14 @@ func ParseRelayMessage( writer http.ResponseWriter, request *http.Request ) Rela
 	return relaymsg
 }
 
+func IsAtLastStep(relayMsg RelayMessage) bool {
+	return relayMsg.RelayIndex >= len(relayMsg.NodeURLs)
+}
+
 func Relay (writer http.ResponseWriter, request *http.Request) {
 	relayMsg := ParseRelayMessage(writer, request)
-	if relayMsg.RelayIndex >= len(relayMsg.NodeURLs) {
-		_nodePrint("Received message: " + relayMsg.Msg)
+	if IsAtLastStep(relayMsg) {
+		_nodePrint("Received message: " + relayMsg.Msg) //todo: make this send an actual request to an actual website/service like webRAPL and bring the info back to the Client
 		return
 	}
 
