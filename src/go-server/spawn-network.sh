@@ -2,18 +2,21 @@
 
 set -e
 
-# TODO: read portnumbers / urls of all the nodes from a file
-#  have all the nodes also read from the urls file so the network is a fully connected graph
-#    or do they even need that? if the client just has a list of all the nodes in the network, it can come up with its own path and then just have to send them to each other as general http URLs, right?
+#if [[ -z $@ ]]; then
+#	echo "usage: $0 port1 port2 ... portN"
+#	echo "  will spawn a server running on each of these ports"
+#	exit 2
+#fi
 
-if [[ -z $@ ]]; then
-	echo "usage: $0 port1 port2 ... portN"
-	echo "  will spawn a server running on each of these ports"
+if [[ -z $1 ]]; then
+	echo "usage: $0 network-urls-file"
 	exit 2
 fi
 
+url_file=$1
+
 node_program=./onion-node
-ports=$@
+ports=$(sed -e 's/#.*$//' -e 's/.*://' $url_file)
 for port in $ports; do
 	$node_program $port &
 	pids="$pids $!"

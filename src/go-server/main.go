@@ -18,7 +18,7 @@ var NODE_ID int; // find out how to make this const but dynamically defined (ie 
 type RelayMessage struct {
 	Msg string `json:"msg"`
 	RelayIndex int `json:relayIndex`
-	NodeURLs [3]string `json:nodeURLs`// 3 nodes per relay (eventually make this value dynamic) 
+	NodeURLs []string `json:nodeURLs`
 }
 
 func _nodePrint(msg string) {
