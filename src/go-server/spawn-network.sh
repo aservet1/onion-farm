@@ -25,7 +25,7 @@ sleep .5
 killcmd='kill'
 killme="nope not yet"
 while [[ $killme != $killcmd ]]; do
-	echo -n "type '$killcmd' to kill the servers: "; read killme
+	echo -n "type '$killcmd' to kill the nodes: "; read killme
 done
 
 kill $pids
