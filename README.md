@@ -1,7 +1,7 @@
 # onion-farm
 onion network on one server with microservices (just server processes running on the machine, not docker container or anything) as the nodes
 
-<img src='onion-server.png'/>
+<img src='img/onion-server.png'/>
 
 Here's a really super awesome good 10/10 graphic design picture describing what I have in mind
 

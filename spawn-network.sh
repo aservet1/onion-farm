@@ -15,7 +15,7 @@ fi
 
 url_file=$1
 
-node_program=./onion-node
+node_program=./bin/onion-node
 ports=$(sed -e 's/#.*$//' -e 's/.*://' $url_file)
 for port in $ports; do
 	$node_program $port &
